@@ -102,8 +102,7 @@ MonoBehaviour:
   Down: 115
   Left: 113
   Right: 100
-  _map: {fileID: 0}
-  AttackPoints: 10
+  _playerStats: {fileID: 4165966784559106107}
 --- !u!114 &4165966784559106107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +122,4 @@ MonoBehaviour:
   Level: 1
   ExperienceForNextLevel: 20
   MaxLevel: 5
-  Item: []
-  player: {fileID: -1658426625444501798}
   Gold: 0
-  textgold: {fileID: 0}

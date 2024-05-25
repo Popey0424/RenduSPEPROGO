@@ -14,7 +14,7 @@ public class PlayerStats : MonoBehaviour
     public int ExperienceForNextLevel = 20;
     public int MaxLevel = 5;
   //  public List<PlayerStats> Item = new List<PlayerStats>() ;
-    public PlayerMovement player;
+    //private PlayerMovement player;
     public int Gold = 0;
 
    
@@ -31,6 +31,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void GainGold(int money)
+    {
+        Gold += money;
+        MainGame.Instance.ui.NewTextGold(money);
+    }
     public void LevelUp()
     {
         Level++;

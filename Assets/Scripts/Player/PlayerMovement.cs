@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode Left;
     public KeyCode Right;
 
-    public MainGame _map;
+    private MainGame _map;
+    public PlayerStats _playerStats;
+    
+    
     
 
-    public int AttackPoints = 10;
     private void Start()
     {
     }
@@ -30,18 +32,23 @@ public class PlayerMovement : MonoBehaviour
         {
              if(MainGame.Instance.IsWall(_cellPosition.x, _cellPosition.y + 1) == false)
             {
-                GameObject enemy = MainGame.Instance.GetEnemie(_cellPosition.x, _cellPosition.y + 1);
-                if (enemy != null)
+                GameObject _enemy = MainGame.Instance.GetEnemie(_cellPosition.x, _cellPosition.y + 1);
+                GameObject _gold = MainGame.Instance.GetGold(_cellPosition.x, _cellPosition.y+1);
+                if (_enemy != null)
                 {
-                    enemy.GetComponent<Enemy>().Hit(AttackPoints);
-                    if (MainGame.Instance.IsGold(_cellPosition.x, _cellPosition.y+1) == true)
-                    {
-                        Debug.Log("Tu est sur de largent");
-                    }
+                    Fighting(_enemy);
+                    
 
 
 
 
+                }
+                else if (_gold != null && _gold.name == "GoldPrefab(Clone)")
+                {
+                    Debug.Log("trouve gold");
+                    MainGame.Instance.PlayerStats.GainGold(5);
+                    
+                    Destroy(_gold);
                 }
                 else
                 {
@@ -119,6 +126,17 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(_cellPosition.x * 0.08f, _cellPosition.y * 0.08f, 0);
     }
 
+    public void Fighting(GameObject enemy)
+    {
+        var StatsEnemie = enemy.GetComponent<Enemy>();
+        StatsEnemie.EnemyLifePoints -= (_playerStats.AttackPoints - StatsEnemie.EnemyArmorPoints);
+        _playerStats.LifePoints -= (StatsEnemie.EnemyAttackPoints - _playerStats.ArmorPoints);
+
+        if(StatsEnemie.EnemyLifePoints <= 0)
+        {
+            StatsEnemie.Die();
+        }
+    }
 
 
 
@@ -129,3 +147,6 @@ public class PlayerMovement : MonoBehaviour
 //    Debug.Log("Argent");
 //    gold.GetComponent<PlayerStats>().EarnCoin();
 //}
+
+
+

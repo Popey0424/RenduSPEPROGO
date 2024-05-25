@@ -25,8 +25,8 @@ public class MainGame : MonoBehaviour
     
 
     bool[,] _map;
-    GameObject[,] Enemies;
-    GameObject[,] Item;
+    GameObject[,] _enemies;
+    GameObject[,] _gold;
 
     //public bool[,] Map => _map;
 
@@ -39,8 +39,8 @@ public class MainGame : MonoBehaviour
     private void Start()
     {
         _map = new bool[20,20];
-        Enemies = new GameObject[20,20];
-        Item = new GameObject[20,20];
+        _enemies = new GameObject[20,20];
+        _gold = new GameObject[20,20];
 
         for(int y = 0; y < 20; y++)
         {
@@ -98,7 +98,7 @@ public class MainGame : MonoBehaviour
         Vector3 enemypostion = Grid.CellToWorld(new Vector3Int(0,4,0));
         GameObject Enemy = GameObject.Instantiate(PrefabEnemy, enemypostion, Quaternion.identity);
 
-        Enemies[0,4] = Enemy;
+        _enemies[0,4] = Enemy;
     }
 
     //public bool CheckForHealthPotion(Vector2Int position, PlayerMovement player)
@@ -122,14 +122,15 @@ public class MainGame : MonoBehaviour
 
     public GameObject GetEnemie(int x, int y)
     {
-        return Enemies[x, y];
+        return _enemies[x, y];
     }
 
-    public bool IsGold(int x, int y)
+    public GameObject GetGold(int x, int y) 
     {
-        return Item[x, y];
+        return _gold[x, y];
     }
 
 
 }
+
 
