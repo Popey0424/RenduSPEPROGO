@@ -13,7 +13,7 @@ public class MainGame : MonoBehaviour
     public static MainGame Instance;
     public PlayerStats PlayerStats;
     public UI ui;
-
+    public PlayerMovement player;
 
     [Header("Tiles")]
     public List<Tile> Tuiles = new List<Tile>();

@@ -97,9 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36047593cb43d6489f28e6c25ca5f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifePoints: 100
-  AttackPoints: 20
-  ArmorPoints: 10
+  EnemyLifePoints: 100
+  EnemyAttackPoints: 20
+  EnemyArmorPoints: 100
   healthPotionPrefab: {fileID: 7898735599338563475, guid: 4eba23d20ea3e104fabeda88ae9476fe, type: 3}
   goldPrefab: {fileID: 8388874968543762759, guid: b63e5564dbe40c640b8b670146183773, type: 3}
-  game: {fileID: 0}

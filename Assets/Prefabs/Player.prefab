@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifePoints: 100
-  AttackPoints: 1000
+  AttackPoints: 50
   ArmorPoints: 50
   Experience: 0
   Level: 1

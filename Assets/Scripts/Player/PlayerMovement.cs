@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private MainGame _map;
     public PlayerStats _playerStats;
+ 
     
     
     
@@ -42,13 +43,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-                }
-                else if (_gold != null && _gold.name == "GoldPrefab(Clone)")
-                {
-                    Debug.Log("trouve gold");
-                    MainGame.Instance.PlayerStats.GainGold(5);
-                    
-                    Destroy(_gold);
                 }
                 else
                 {
@@ -129,14 +123,87 @@ public class PlayerMovement : MonoBehaviour
     public void Fighting(GameObject enemy)
     {
         var StatsEnemie = enemy.GetComponent<Enemy>();
-        StatsEnemie.EnemyLifePoints -= (_playerStats.AttackPoints - StatsEnemie.EnemyArmorPoints);
-        _playerStats.LifePoints -= (StatsEnemie.EnemyAttackPoints - _playerStats.ArmorPoints);
+        Debug.Log("Le combat commence");
 
-        if(StatsEnemie.EnemyLifePoints <= 0)
+        // Calcul des dégâts infligés à l'ennemi
+        int degatsInfliges = _playerStats.AttackPoints;
+        if (StatsEnemie.EnemyArmorPoints > 0)
+        {
+            if (degatsInfliges > StatsEnemie.EnemyArmorPoints)
+            {
+                degatsInfliges -= StatsEnemie.EnemyArmorPoints;
+                StatsEnemie.EnemyArmorPoints = 0;
+                StatsEnemie.EnemyLifePoints -= degatsInfliges;
+            }
+            else
+            {
+                StatsEnemie.EnemyArmorPoints -= degatsInfliges;
+            }
+        }
+        else
+        {
+            StatsEnemie.EnemyLifePoints -= degatsInfliges;
+        }
+        Debug.Log("Tu lui as infligé des dégâts: " + degatsInfliges);
+
+        // Calcul des dégâts reçus par le joueur
+        int degatsRecus = StatsEnemie.EnemyAttackPoints;
+        if (_playerStats.ArmorPoints > 0)
+        {
+            if (degatsRecus > _playerStats.ArmorPoints)
+            {
+                degatsRecus -= _playerStats.ArmorPoints;
+                _playerStats.ArmorPoints = 0;
+                _playerStats.LifePoints -= degatsRecus;
+            }
+            else
+            {
+                _playerStats.ArmorPoints -= degatsRecus;
+            }
+        }
+        else
+        {
+            _playerStats.LifePoints -= degatsRecus;
+        }
+        Debug.Log("Il t'a infligé des dégâts: " + degatsRecus);
+
+        // Mise à jour de l'UI des points de vie
+        MainGame.Instance.ui.UpdateLifeText();
+
+        // Vérification si l'ennemi est mort
+        if (StatsEnemie.EnemyLifePoints <= 0)
         {
             StatsEnemie.Die();
         }
     }
+
+    //public void Fighting(GameObject enemy)
+    //{
+    //    var StatsEnemie = enemy.GetComponent<Enemy>();
+    //    Debug.Log("Le combat commance");
+    //    StatsEnemie.EnemyLifePoints -= (_playerStats.AttackPoints - StatsEnemie.EnemyArmorPoints);
+    //    Debug.Log("tu lui a mis des degats");
+
+    //    _playerStats.LifePoints -= (StatsEnemie.EnemyAttackPoints - _playerStats.ArmorPoints);
+    //    Debug.Log("Il ta mis des degats");
+    //    MainGame.Instance.ui.UpdateLifeText();
+
+
+    //    if (StatsEnemie.EnemyLifePoints <= 0)
+    //    {
+    //        StatsEnemie.Die();
+    //    }
+
+
+    //}
+    //    else if (_gold != null && _gold.name == "GoldPrefab(Clone)")
+    //                {
+    //                    Debug.Log("trouve gold");
+    //                    MainGame.Instance.PlayerStats.GainGold(5);
+
+    //                    Destroy(_gold);
+    //}
+
 
 
 

@@ -6,42 +6,20 @@ using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
-    public int EnemyLifePoints = 100;
-    public int EnemyAttackPoints = 20;
-    public int EnemyArmorPoints = 10;
+    public int EnemyLifePoints;
+    public int EnemyAttackPoints;
+    public int EnemyArmorPoints;
 
     public GameObject healthPotionPrefab;
     public GameObject goldPrefab;
 
-    //private PlayerStats player;
-    //private PlayerMovement playerposition;
-    //private  MainGame maingame;
-
-    private void Start()
-    {
-    }
-
-   
-    //public void Hit(int Damage)
-    //{
-        
-    //    EnemyLifePoints -= Damage;
-        
-    //    if (EnemyLifePoints <= 0)
-    //    {
-    //        Die();
-    //    }
-    //    else
-    //    {
-
-    //    }
-    //}
+    
 
     public void Die()
     {
         
         GameObject.Destroy(gameObject);
-        MainGame.Instance.PlayerStats.GainExperience(10);
+        MainGame.Instance.PlayerStats.GainExperience(30);
         DropLoot(transform.position); 
     }
 

@@ -6,16 +6,14 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 
-    public int LifePoints = 100;
-    public int AttackPoints = 1000;
-    public int ArmorPoints = 50;
-    public int Experience = 0;
-    public int Level = 1;
-    public int ExperienceForNextLevel = 20;
-    public int MaxLevel = 5;
-  //  public List<PlayerStats> Item = new List<PlayerStats>() ;
-    //private PlayerMovement player;
-    public int Gold = 0;
+    public int LifePoints;
+    public int AttackPoints;
+    public int ArmorPoints;
+    public int Experience;
+    public int Level;
+    public int ExperienceForNextLevel;
+    public int MaxLevel;
+    public int Gold;
 
    
 
@@ -27,7 +25,7 @@ public class PlayerStats : MonoBehaviour
         MainGame.Instance.ui.NewTextExperience(amount);    
         if (Experience >= ExperienceForNextLevel && Level < MaxLevel)
         {
-            LevelUp();
+            //LevelUp(1);
         }
     }
 
@@ -36,20 +34,21 @@ public class PlayerStats : MonoBehaviour
         Gold += money;
         MainGame.Instance.ui.NewTextGold(money);
     }
-    public void LevelUp()
-    {
-        Level++;
-        Experience = 0;
-        ExperienceForNextLevel += 100;
-        AttackPoints += 5;
-        LifePoints += 20;
-    }
+    //public void LevelUp(int level)
+    //{
+    //    Level += level;
+    //    Experience = 0;
+    //    ExperienceForNextLevel += 20;
+    //    AttackPoints += 5;
+    //    LifePoints += 20;
+    //    MainGame.Instance.ui.NewTextLevel(level);
+    //}
 
-    public void EarnCoin()
-    {
-        Gold++;
-        Debug.Log("GG TA gagne un gold");
-    }
+    //public void EarnCoin()
+    //{
+    //    Gold++;
+    //    Debug.Log("GG TA gagne un gold");
+    //}
 
 
 
