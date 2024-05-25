@@ -19,7 +19,7 @@ public class UI : MonoBehaviour
 
         NewTextExperience(0);
         NewTextGold(0);
-        NewTextLevel(1);
+        NewTextLevelUp();
     }
 
     public void NewTextGold(int gold)
@@ -32,13 +32,13 @@ public class UI : MonoBehaviour
         game.ui.TextExperience.text = "Experience :" + experience.ToString();
     }
 
-    public void NewTextLevel(int level)
+    public void NewTextLevelUp()
     {
-        game.ui.TextLevel.text = "Level :" + level.ToString();
+        game.ui.TextLevel.text = "Level :" + game._PlayerStats.Level.ToString();
     }
 
-    public void UpdateLifeText()
+    public void UpdateLifeText(int Life)
     {
-        TextHealth.text = "Life :" + game.player._playerStats.LifePoints;
+        TextHealth.text = "Life :" + Life.ToString();
     }
 }

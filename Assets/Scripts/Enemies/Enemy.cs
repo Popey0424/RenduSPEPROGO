@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     {
         
         GameObject.Destroy(gameObject);
-        MainGame.Instance.PlayerStats.GainExperience(30);
+        MainGame.Instance._PlayerStats.GainExperience(30);
         DropLoot(transform.position); 
     }
 

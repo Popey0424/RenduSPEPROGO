@@ -959,7 +959,8 @@ MonoBehaviour:
   Grid: {fileID: 70456772}
   PrefabPlayer: {fileID: 7872397753017883437, guid: d2d3a9ab7895c2b4888bd1b51c71aeaf, type: 3}
   PrefabEnemy: {fileID: 4468423210506926118, guid: f311d4f8cf1e5a34c9903abbd73710c8, type: 3}
-  PlayerStats: {fileID: 4165966784559106107, guid: d2d3a9ab7895c2b4888bd1b51c71aeaf, type: 3}
+  PrefabPNJ: {fileID: 3008314734684235985, guid: 91040b699b528e546808d2daf4164c92, type: 3}
+  _PlayerStats: {fileID: 4165966784559106107, guid: d2d3a9ab7895c2b4888bd1b51c71aeaf, type: 3}
   ui: {fileID: 1047449529}
   player: {fileID: -1658426625444501798, guid: d2d3a9ab7895c2b4888bd1b51c71aeaf, type: 3}
   Tuiles:

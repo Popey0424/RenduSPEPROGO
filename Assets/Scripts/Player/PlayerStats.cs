@@ -12,11 +12,16 @@ public class PlayerStats : MonoBehaviour
     public int Experience;
     public int Level;
     public int ExperienceForNextLevel;
-    public int MaxLevel;
+    public int MaxLevel = 5;
     public int Gold;
 
-   
-
+    void Start()
+    {
+        
+        Level = 1;
+        Experience = 0;
+        ExperienceForNextLevel = 10; 
+    }
 
     public void GainExperience(int amount)
     {
@@ -25,7 +30,9 @@ public class PlayerStats : MonoBehaviour
         MainGame.Instance.ui.NewTextExperience(amount);    
         if (Experience >= ExperienceForNextLevel && Level < MaxLevel)
         {
-            //LevelUp(1);
+            Debug.Log("J'ai assez D'XP pour up de niveau");
+            LevelUp();
+            
         }
     }
 
@@ -34,21 +41,30 @@ public class PlayerStats : MonoBehaviour
         Gold += money;
         MainGame.Instance.ui.NewTextGold(money);
     }
-    //public void LevelUp(int level)
-    //{
-    //    Level += level;
-    //    Experience = 0;
-    //    ExperienceForNextLevel += 20;
-    //    AttackPoints += 5;
-    //    LifePoints += 20;
-    //    MainGame.Instance.ui.NewTextLevel(level);
-    //}
+    private void LevelUp()
+    {
+        Experience -= ExperienceForNextLevel;
+        Level++;
+        ExperienceForNextLevel += 10; // Exemple d'incrément, ajustez selon votre système de progression
+        MainGame.Instance.ui.NewTextExperience(Experience);
+        Debug.Log($"Niveau atteint: {Level}");
+        MainGame.Instance.ui.NewTextLevelUp();
 
-    //public void EarnCoin()
-    //{
-    //    Gold++;
-    //    Debug.Log("GG TA gagne un gold");
-    //}
+        if (Level >= MaxLevel)
+        {
+            Experience = ExperienceForNextLevel - 1; // Empêcher l'XP d'aller au-delà du nécessaire pour le dernier niveau
+            Debug.Log("Niveau maximum atteint");
+        }
+    }
+
+    
+
+    public void PlayerDie()
+    {
+
+    }
+    
+
 
 
 

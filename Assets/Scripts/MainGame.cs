@@ -10,8 +10,9 @@ public class MainGame : MonoBehaviour
     public GridLayout Grid;
     public GameObject PrefabPlayer;
     public GameObject PrefabEnemy;
+    public GameObject PrefabPNJ;
     public static MainGame Instance;
-    public PlayerStats PlayerStats;
+    public PlayerStats _PlayerStats;
     public UI ui;
     public PlayerMovement player;
 
@@ -25,6 +26,7 @@ public class MainGame : MonoBehaviour
     
 
     bool[,] _map;
+    GameObject[,] _pnj;
     GameObject[,] _enemies;
     GameObject[,] _gold;
 
@@ -41,6 +43,7 @@ public class MainGame : MonoBehaviour
         _map = new bool[20,20];
         _enemies = new GameObject[20,20];
         _gold = new GameObject[20,20];
+        _pnj = new GameObject[20,20];
 
         for(int y = 0; y < 20; y++)
         {
@@ -99,6 +102,12 @@ public class MainGame : MonoBehaviour
         GameObject Enemy = GameObject.Instantiate(PrefabEnemy, enemypostion, Quaternion.identity);
 
         _enemies[0,4] = Enemy;
+
+        //Instantiate Enemy 1
+        Vector3 pnjposition = Grid.CellToWorld(new Vector3Int(6, 4, 0));
+        GameObject pnj = GameObject.Instantiate(PrefabPNJ, pnjposition, Quaternion.identity);
+
+        _pnj[6, 4] = pnj;
     }
 
     //public bool CheckForHealthPotion(Vector2Int position, PlayerMovement player)
@@ -128,6 +137,10 @@ public class MainGame : MonoBehaviour
     public GameObject GetGold(int x, int y) 
     {
         return _gold[x, y];
+    }
+    public GameObject GetPNJ(int x, int y)
+    {
+        return _pnj[x, y];
     }
 
 

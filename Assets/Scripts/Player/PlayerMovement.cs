@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Debug.Log("Tu lui as infligé des dégâts: " + degatsInfliges);
 
-        // Calcul des dégâts reçus par le joueur
+       
         int degatsRecus = StatsEnemie.EnemyAttackPoints;
         if (_playerStats.ArmorPoints > 0)
         {
@@ -167,10 +167,14 @@ public class PlayerMovement : MonoBehaviour
         }
         Debug.Log("Il t'a infligé des dégâts: " + degatsRecus);
 
-        // Mise à jour de l'UI des points de vie
-        MainGame.Instance.ui.UpdateLifeText();
+        
+        MainGame.Instance.ui.UpdateLifeText(_playerStats.LifePoints);
 
-        // Vérification si l'ennemi est mort
+        if(_playerStats.LifePoints <= 0)
+        {
+            _playerStats.PlayerDie();
+        }
+        
         if (StatsEnemie.EnemyLifePoints <= 0)
         {
             StatsEnemie.Die();
