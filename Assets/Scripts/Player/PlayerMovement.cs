@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameObject _enemy = MainGame.Instance.GetEnemie(_cellPosition.x, _cellPosition.y + 1);
                 GameObject _gold = MainGame.Instance.GetGold(_cellPosition.x, _cellPosition.y+1);
+                GameObject _pnj = MainGame.Instance.GetPNJ(_cellPosition.x , _cellPosition.y +1);
                 if (_enemy != null)
                 {
                     Fighting(_enemy);
@@ -43,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+                }
+                else if(_pnj != null)
+                {
+                    MainGame.Instance.pnj.StartImput();
                 }
                 else
                 {

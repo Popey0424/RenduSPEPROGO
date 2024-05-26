@@ -15,6 +15,7 @@ public class MainGame : MonoBehaviour
     public PlayerStats _PlayerStats;
     public UI ui;
     public PlayerMovement player;
+    public PNJ pnj;
 
     [Header("Tiles")]
     public List<Tile> Tuiles = new List<Tile>();
