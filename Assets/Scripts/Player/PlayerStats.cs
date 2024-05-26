@@ -2,31 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
 
-    public int LifePoints;
-    public int AttackPoints;
-    public int ArmorPoints;
-    public int Experience;
-    public int Level;
-    public int ExperienceForNextLevel;
+    public int LifePoints = 100;
+    public int AttackPoints =25;
+    public int ArmorPoints = 50;
+    public int Experience = 0;
+    public int Level =1;
+    public int ExperienceForNextLevel =20;
     public int MaxLevel = 5;
-    public int Gold;
+    public int Gold = 0;
 
-    void Start()
+
+
+
+    private void Start()
     {
-        Gold = 0;
-        Level = 1;
+        LifePoints = 100;
+        AttackPoints = 25;
+        ArmorPoints = 50;
         Experience = 0;
-        ExperienceForNextLevel = 10; 
-    }
+        Level = 1;
+        ExperienceForNextLevel = 20;
+        MaxLevel = 5;
+         Gold = 0;
 
-    private void Update()
-    {
-        Debug.Log(Gold);
-    }
+}
 
     public void GainExperience(int amount)
     {
@@ -46,14 +50,14 @@ public class PlayerStats : MonoBehaviour
     {
         Experience -= ExperienceForNextLevel;
         Level++;
-        ExperienceForNextLevel += 10; // Exemple d'incrément, ajustez selon votre système de progression
+        ExperienceForNextLevel += 10; 
         MainGame.Instance.ui.NewTextExperience(Experience);
         Debug.Log($"Niveau atteint: {Level}");
         MainGame.Instance.ui.NewTextLevelUp();
 
         if (Level >= MaxLevel)
         {
-            Experience = ExperienceForNextLevel - 1; // Empêcher l'XP d'aller au-delà du nécessaire pour le dernier niveau
+            Experience = ExperienceForNextLevel - 1; 
             Debug.Log("Niveau maximum atteint");
         }
     }
@@ -62,7 +66,8 @@ public class PlayerStats : MonoBehaviour
 
     public void PlayerDie()
     {
-
+        print("Mort");
+        Application.Quit();
     }
     
 

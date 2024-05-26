@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI TextLevel;
     public TextMeshProUGUI TextDamage;
     public TextMeshProUGUI TextHealth;
+    public TextMeshProUGUI TextArmor;
     
     public MainGame game;
     
@@ -21,20 +22,21 @@ public class UI : MonoBehaviour
         NewTextGold();
         NewTextLevelUp();
         UpdateLifeText(game._PlayerStats.LifePoints);
+        NewTextArmorLevel(game._PlayerStats.ArmorPoints);
     }
     private void Update()
-    {
-        game.ui.TextGold.text = "Gold :" + game._PlayerStats.Gold.ToString();
-    }
-
-    public void NewTextGold()
     {
         
     }
 
+    public void NewTextGold()
+    {
+        game.ui.TextGold.text = "Gold :" + MainGame.Instance._PlayerStats.Gold.ToString();
+    }
+
     public void NewTextExperience(int experience)
     {
-        game.ui.TextExperience.text = "Experience :" + experience.ToString();
+        game.ui.TextExperience.text = "Experience :" + MainGame.Instance._PlayerStats.Experience.ToString();
     }
 
     public void NewTextLevelUp()
@@ -45,5 +47,10 @@ public class UI : MonoBehaviour
     public void UpdateLifeText(int Life)
     {
         TextHealth.text =   Life.ToString();
+    }
+
+    public void NewTextArmorLevel(int Armor) 
+    {
+        TextArmor.text = "Armor : " + Armor.ToString();
     }
 }

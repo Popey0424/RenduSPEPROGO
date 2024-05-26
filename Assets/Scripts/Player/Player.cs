@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Vector2Int CellPosition => _cellPosition;
-     
-    public static  PlayerMovement instance;
+
+    public static Player instance;
 
     Vector2Int _cellPosition;
 
@@ -19,11 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private MainGame _map;
     public PlayerStats _playerStats;
 
-    [HideInInspector]public Vector2Int Offset;
- 
-    
-    
-    
+    [HideInInspector] public Vector2Int Offset;
+
+
+
+
 
     private void Start()
     {
@@ -36,11 +36,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(Up))
         {
-            Offset = new Vector2Int(0, -1);
+            Offset = new Vector2Int(0, 1);
         }
         if (Input.GetKeyDown(Down))
         {
-            Offset = new Vector2Int(0, 1);
+            Offset = new Vector2Int(0, -1);
         }
         if (Input.GetKeyDown(Left))
         {
@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameObject _enemy = MainGame.Instance.GetEnemie(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
 
+
                 GameObject _item = MainGame.Instance.GetItem(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
                 GameObject _pnj = MainGame.Instance.GetPNJ(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
                 if (_enemy != null)
@@ -64,13 +65,13 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (_item != null)
                 {
-                    
+
                     if (_item.name == "GoldPrefab(Clone)")
                     {
                         Debug.Log("DELOR");
-                        
-                        _playerStats.Gold += 5;
-                        /*MainGame.Instance.ui.NewTextGold()*/;
+
+                        _playerStats.Gold += 10;
+                        MainGame.Instance.ui.NewTextGold();
 
                     }
                     else if (_item.name == "HealthPotionPrefab(Clone)")
@@ -87,38 +88,47 @@ public class PlayerMovement : MonoBehaviour
                 {
                     MainGame.Instance.pnj.StartImput();
                 }
+                else if (MainGame.Instance.isTeleport(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y))
+                {
+                    Teleport();
+                }
                 else
                 {
 
                     UpdateView();
                 }
-                
+
             }
             Offset = new Vector2Int(0, 0);
 
         }
-        
-
-
-    }    
-                    
 
 
 
-
-               
-                
-                
-
-                
-             
-            
-        
-       
+    }
 
 
 
-    
+
+    private void Teleport()
+    {
+        _cellPosition = MainGame.Instance.TeleportDestination;
+        UpdateView();
+        Debug.Log("Téléporté à: " + _cellPosition);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void UpdateView()
     {
         _cellPosition += Offset;
@@ -130,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         var StatsEnemie = enemy.GetComponent<Enemy>();
         Debug.Log("Le combat commence");
 
-        // Calcul des dégâts infligés à l'ennemi
+
         int degatsInfliges = _playerStats.AttackPoints;
         if (StatsEnemie.EnemyArmorPoints > 0)
         {
@@ -151,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Debug.Log("Tu lui as infligé des dégâts: " + degatsInfliges);
 
-       
+
         int degatsRecus = StatsEnemie.EnemyAttackPoints;
         if (_playerStats.ArmorPoints > 0)
         {
@@ -172,71 +182,32 @@ public class PlayerMovement : MonoBehaviour
         }
         Debug.Log("Il t'a infligé des dégâts: " + degatsRecus);
 
-        
+        MainGame.Instance.ui.NewTextArmorLevel(_playerStats.ArmorPoints);
         MainGame.Instance.ui.UpdateLifeText(_playerStats.LifePoints);
 
-        if(_playerStats.LifePoints <= 0)
+        if (_playerStats.LifePoints <= 0)
         {
             _playerStats.PlayerDie();
         }
-        
+
         if (StatsEnemie.EnemyLifePoints <= 0)
         {
             MainGame.Instance._PlayerStats.GainExperience(30);
             int ItemAleatoire = Random.Range(0, 100);
-            if (ItemAleatoire < 30)
+            if (ItemAleatoire < 60)
             {
                 var Item = GameObject.Instantiate(StatsEnemie.goldPrefab, enemy.transform.position, Quaternion.identity);
-                MainGame.Instance.AjoutItem(0, 4, Item);
+                MainGame.Instance.AjoutItem(6, 10, Item);
 
             }
-            else 
+            else
             {
 
                 GameObject Item = GameObject.Instantiate(StatsEnemie.healthPotionPrefab, enemy.transform.position, Quaternion.identity);
-                MainGame.Instance.AjoutItem(0, 4, Item);
+                MainGame.Instance.AjoutItem(6, 10, Item);
             }
             Destroy(enemy);
         }
     }
-
-    //public void Fighting(GameObject enemy)
-    //{
-    //    var StatsEnemie = enemy.GetComponent<Enemy>();
-    //    Debug.Log("Le combat commance");
-    //    StatsEnemie.EnemyLifePoints -= (_playerStats.AttackPoints - StatsEnemie.EnemyArmorPoints);
-    //    Debug.Log("tu lui a mis des degats");
-
-    //    _playerStats.LifePoints -= (StatsEnemie.EnemyAttackPoints - _playerStats.ArmorPoints);
-    //    Debug.Log("Il ta mis des degats");
-    //    MainGame.Instance.ui.UpdateLifeText();
-
-
-    //    if (StatsEnemie.EnemyLifePoints <= 0)
-    //    {
-    //        StatsEnemie.Die();
-    //    }
-
-
-    //}
-    //    else if (_gold != null && _gold.name == "GoldPrefab(Clone)")
-    //                {
-    //                    Debug.Log("trouve gold");
-    //                    MainGame.Instance.PlayerStats.GainGold(5);
-
-    //                    Destroy(_gold);
-    //}
-
-
-
-
 }
-//GameObject gold = MainGame.Instance.GetGold(_cellPosition.x, _cellPosition.y + 1);
-//if (gold != null)
-//{
-//    Debug.Log("Argent");
-//    gold.GetComponent<PlayerStats>().EarnCoin();
-//}
-
-
 

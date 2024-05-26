@@ -11,19 +11,20 @@ public class MainGame : MonoBehaviour
     public GameObject PrefabPlayer;
     public GameObject PrefabEnemy;
     public GameObject PrefabPNJ;
+    public GameObject Vortex1Prefab;
+    public GameObject Vortex2Prefab;
     public static MainGame Instance;
     public PlayerStats _PlayerStats;
     public UI ui;
-    public PlayerMovement player;
+    public Player player;
     public PNJ pnj;
    
 
     [Header("Tiles")]
     public List<Tile> Tuiles = new List<Tile>();
-    //public Tile WaterBoardArround;
-    //public Tile WaterBoard;
-    //public Tile Water;
-    //public Tile Wall;
+    public List<Vector2Int> TeleportPostionsDepart = new List<Vector2Int>();
+    public Vector2Int TeleportDestination;
+    
 
     
 
@@ -32,7 +33,7 @@ public class MainGame : MonoBehaviour
     GameObject[,] _enemies;
     GameObject[,] _items;
 
-    //public bool[,] Map => _map;
+    
 
     private void Awake()
     {
@@ -73,24 +74,37 @@ public class MainGame : MonoBehaviour
             }
 
             
+             
+            
+            
         }
+        Vector3 Vortex1position = Grid.CellToWorld(new Vector3Int(6, 3, 0));
+        GameObject vortex1 = GameObject.Instantiate(Vortex1Prefab, Vortex1position, Quaternion.identity);
+        TeleportPostionsDepart.Add(new Vector2Int(6, 3));
+
+        Vector3 Vortex2position = Grid.CellToWorld(new Vector3Int(8, 16, 0));
+        GameObject Vortex2 = GameObject.Instantiate(Vortex2Prefab, Vortex2position, Quaternion.identity);
+        TeleportDestination = new Vector2Int(8, 16);
+
 
         //Instantiate Player
-        Vector3 position = Grid.CellToWorld(new Vector3Int(1,0,0));
+        Vector3 position = Grid.CellToWorld(new Vector3Int(0,0,0));
         GameObject player = GameObject.Instantiate(PrefabPlayer, position, Quaternion.identity);
 
         //Instantiate Enemy 1
-        Vector3 enemypostion = Grid.CellToWorld(new Vector3Int(0,4,0));
-        GameObject Enemy = GameObject.Instantiate(PrefabEnemy, enemypostion, Quaternion.identity);
+        Vector3 enemyposition = Grid.CellToWorld(new Vector3Int(6,10,0));
+        GameObject Enemy = GameObject.Instantiate(PrefabEnemy, enemyposition, Quaternion.identity);
 
-        _enemies[0,4] = Enemy;
-        
+        _enemies[6,10] = Enemy;
+
+       
+
 
         //Instantiate pnj
-        Vector3 pnjposition = Grid.CellToWorld(new Vector3Int(6, 4, 0));
+        Vector3 pnjposition = Grid.CellToWorld(new Vector3Int(3, 6, 0));
         GameObject pnj = GameObject.Instantiate(PrefabPNJ, pnjposition, Quaternion.identity);
 
-        _pnj[6, 4] = pnj;
+        _pnj[3, 6] = pnj;
 
 
     }
@@ -120,7 +134,10 @@ public class MainGame : MonoBehaviour
         return _pnj[x, y];
     }
 
-
+    public bool isTeleport(int  x, int y)
+    {
+        return TeleportPostionsDepart.Contains(new Vector2Int(x, y));
+    }
 }
 
 
@@ -130,19 +147,5 @@ public class MainGame : MonoBehaviour
 
 
 
-
-
-//public bool CheckForHealthPotion(Vector2Int position, PlayerMovement player)
-//{
-//    //if (healthPotions.ContainsKey(position))
-//    //{
-//    //    HealthPotion potion = healthPotions[position];
-//    //    player.Heal(potion.healthAmount);
-//    //    healthPotions.Remove(position);
-//    //    Destroy(potion.gameObject); // Détruit l'objet potion
-//    //    return true;
-//    //}
-//    //return false;
-//}
 
 

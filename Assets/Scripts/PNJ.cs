@@ -12,10 +12,24 @@ public class PNJ : MonoBehaviour
     public TextMeshProUGUI TextComponent;
     public TextMeshProUGUI TextComponent2;
     public Image ImageText;
+    
+
+    
 
     private int index;
     public string[] lines;
     public float TextSpeed;
+
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        Debug.Log(MainGame.Instance._PlayerStats.Gold);
+    }
 
     public void StartImput()
     {
@@ -49,24 +63,30 @@ public class PNJ : MonoBehaviour
 
     public void OnClickAccpet()
     {
-        if(MainGame.Instance._PlayerStats.Gold >= 5)
+        
+
+        if (MainGame.Instance._PlayerStats.Gold >= 5)
         {
             MainGame.Instance._PlayerStats.Gold -= 5;
-            Debug.Log("Tu a acheter la potion");
+            Debug.Log("Tu as acheté la potion");
+            ImageText.gameObject.SetActive(false);
+            TextComponent.gameObject.SetActive(false);
+            ButtonExit.gameObject.SetActive(false);
+            ButtonAccpet.gameObject.SetActive(false);
+            TextComponent2.gameObject.SetActive(false);
+            MainGame.Instance._PlayerStats.LifePoints += 15;
+            MainGame.Instance.ui.UpdateLifeText(MainGame.Instance._PlayerStats.LifePoints);
         }
         else
         {
             TextComponent.gameObject.SetActive(false);
-            Debug.Log("Ta pas assez de thune");
-            index =1;
+            Debug.Log("Tu n'as pas assez de thune");
+            index = 1;
             TextComponent2.gameObject.SetActive(true);
-            StartCoroutine (TypeLine2());
+            StartCoroutine(TypeLine2());
         }
-        
+
         ButtonAccpet.gameObject.SetActive(false);
-        
-
-
     }
 
     IEnumerator TypeLine2()
