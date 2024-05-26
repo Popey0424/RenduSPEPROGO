@@ -18,13 +18,13 @@ public class UI : MonoBehaviour
     {
 
         NewTextExperience(0);
-        NewTextGold(0);
+        NewTextGold();
         NewTextLevelUp();
     }
 
-    public void NewTextGold(int gold)
+    public void NewTextGold()
     {
-        game.ui.TextGold.text = "Gold :" + gold.ToString();
+        game.ui.TextGold.text = "Gold :" + game._PlayerStats.Gold.ToString();
     }
 
     public void NewTextExperience(int experience)

@@ -45,6 +45,10 @@ public class PlayerMovement : MonoBehaviour
 
 
                 }
+                
+                
+
+                
                 else if(_pnj != null)
                 {
                     MainGame.Instance.pnj.StartImput();

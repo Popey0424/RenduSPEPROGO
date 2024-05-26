@@ -41,14 +41,14 @@ public class MainGame : MonoBehaviour
 
     private void Start()
     {
-        _map = new bool[20,20];
+        _map = new bool[80,80];
         _enemies = new GameObject[20,20];
         _gold = new GameObject[20,20];
         _pnj = new GameObject[20,20];
 
-        for(int y = 0; y < 20; y++)
+        for(int y = 0; y < 80; y++)
         {
-            for(int x = 0; x < 20; x++)
+            for(int x = 0; x < 80; x++)
             {
                 
                 var tile = Tilemap.GetTile(new Vector3Int (x, y, 0));
@@ -61,27 +61,7 @@ public class MainGame : MonoBehaviour
                         _map[x, y] = true;
                     }
                 }
-                //if (tile != null && tile.name.Replace(" (UnityEngine.Tilemaps.Tile)", "") == Block.name)
-                    
-                //{
-                //    _map[x, y] = true;
-                //}
-                //if (tile != null && tile.name.Replace(" (UnityEngine.Tilemaps.Tile)", "") == WaterBoardArround.name)
-                //{
-                //    _map[x, y] = true;
-                //}
-                //if (tile != null && tile.name.Replace(" (UnityEngine.Tilemaps.Tile)", "") == WaterBoard.name)
-                //{
-                //    _map[x, y] = true;
-                //}
-                //if (tile != null && tile.name.Replace(" (UnityEngine.Tilemaps.Tile)", "") == Water.name)
-                //{
-                //    _map[x, y] = true;
-                //}
-                //if (tile != null && tile.name.Replace(" (UnityEngine.Tilemaps.Tile)", "") == Wall.name)
-                //{
-                //    _map[x, y] = true;
-                //}
+               
 
 
                 
@@ -104,7 +84,7 @@ public class MainGame : MonoBehaviour
 
         _enemies[0,4] = Enemy;
 
-        //Instantiate Enemy 1
+        //Instantiate pnj
         Vector3 pnjposition = Grid.CellToWorld(new Vector3Int(6, 4, 0));
         GameObject pnj = GameObject.Instantiate(PrefabPNJ, pnjposition, Quaternion.identity);
 

@@ -36,11 +36,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void GainGold(int money)
-    {
-        Gold += money;
-        MainGame.Instance.ui.NewTextGold(money);
-    }
+    
     private void LevelUp()
     {
         Experience -= ExperienceForNextLevel;

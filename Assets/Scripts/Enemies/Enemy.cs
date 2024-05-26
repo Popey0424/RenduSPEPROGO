@@ -28,11 +28,11 @@ public class Enemy : MonoBehaviour
         float ItemAleatoire = Random.Range(0f, 1f);
         if (ItemAleatoire < 0.3f)
         {
-            Instantiate(healthPotionPrefab, position, Quaternion.identity);
+            GameObject Potion = GameObject.Instantiate(healthPotionPrefab, position, Quaternion.identity);
         }
         else if (ItemAleatoire < 0.9f)
         {
-            Instantiate(goldPrefab, position, Quaternion.identity);
+            GameObject Gold = GameObject.Instantiate(goldPrefab, position, Quaternion.identity);
 
         }
     }

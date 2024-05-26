@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3883719497652852560}
   - component: {fileID: -1658426625444501798}
   - component: {fileID: 4165966784559106107}
+  - component: {fileID: -1314268754244102122}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -118,8 +119,29 @@ MonoBehaviour:
   LifePoints: 100
   AttackPoints: 50
   ArmorPoints: 50
-  Experience: 0
-  Level: 1
-  ExperienceForNextLevel: 20
+  Experience: 30
+  Level: 4
+  ExperienceForNextLevel: 50
   MaxLevel: 5
   Gold: 0
+--- !u!95 &-1314268754244102122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872397753017883437}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c17fa1281c14169468fc8e2200f68b80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
