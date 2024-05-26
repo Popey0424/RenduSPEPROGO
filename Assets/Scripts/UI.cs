@@ -16,10 +16,11 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
-
+        
         NewTextExperience(0);
         NewTextGold();
         NewTextLevelUp();
+        UpdateLifeText(game._PlayerStats.LifePoints);
     }
 
     public void NewTextGold()
@@ -39,6 +40,6 @@ public class UI : MonoBehaviour
 
     public void UpdateLifeText(int Life)
     {
-        TextHealth.text = "Life :" + Life.ToString();
+        TextHealth.text =   Life.ToString();
     }
 }

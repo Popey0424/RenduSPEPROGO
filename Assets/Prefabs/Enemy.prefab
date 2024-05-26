@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7389926358932348355}
   - component: {fileID: 4057579668237449493}
   - component: {fileID: 4600365898631553745}
+  - component: {fileID: 7391276067199984503}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -102,3 +103,24 @@ MonoBehaviour:
   EnemyArmorPoints: 100
   healthPotionPrefab: {fileID: 7898735599338563475, guid: 4eba23d20ea3e104fabeda88ae9476fe, type: 3}
   goldPrefab: {fileID: 8388874968543762759, guid: b63e5564dbe40c640b8b670146183773, type: 3}
+--- !u!95 &7391276067199984503
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468423210506926118}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bcb3bc721b6084e429d02eef5404dc11, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
