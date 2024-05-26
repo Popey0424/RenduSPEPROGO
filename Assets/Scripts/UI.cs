@@ -22,10 +22,14 @@ public class UI : MonoBehaviour
         NewTextLevelUp();
         UpdateLifeText(game._PlayerStats.LifePoints);
     }
+    private void Update()
+    {
+        game.ui.TextGold.text = "Gold :" + game._PlayerStats.Gold.ToString();
+    }
 
     public void NewTextGold()
     {
-        game.ui.TextGold.text = "Gold :" + game._PlayerStats.Gold.ToString();
+        
     }
 
     public void NewTextExperience(int experience)

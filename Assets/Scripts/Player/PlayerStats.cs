@@ -17,10 +17,15 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        
+        Gold = 0;
         Level = 1;
         Experience = 0;
         ExperienceForNextLevel = 10; 
+    }
+
+    private void Update()
+    {
+        Debug.Log(Gold);
     }
 
     public void GainExperience(int amount)

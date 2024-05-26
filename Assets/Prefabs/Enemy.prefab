@@ -103,6 +103,9 @@ MonoBehaviour:
   EnemyArmorPoints: 100
   healthPotionPrefab: {fileID: 7898735599338563475, guid: 4eba23d20ea3e104fabeda88ae9476fe, type: 3}
   goldPrefab: {fileID: 8388874968543762759, guid: b63e5564dbe40c640b8b670146183773, type: 3}
+  Loot:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &7391276067199984503
 Animator:
   serializedVersion: 5

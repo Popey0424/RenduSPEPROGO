@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Vector2Int CellPosition => _cellPosition;
+     
     public static  PlayerMovement instance;
 
     Vector2Int _cellPosition;
@@ -16,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     private MainGame _map;
     public PlayerStats _playerStats;
+
+    [HideInInspector]public Vector2Int Offset;
  
     
     
@@ -29,103 +33,95 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
+
         if (Input.GetKeyDown(Up))
         {
-             if(MainGame.Instance.IsWall(_cellPosition.x, _cellPosition.y + 1) == false)
+            Offset = new Vector2Int(0, -1);
+        }
+        if (Input.GetKeyDown(Down))
+        {
+            Offset = new Vector2Int(0, 1);
+        }
+        if (Input.GetKeyDown(Left))
+        {
+            Offset = new Vector2Int(-1, 0);
+        }
+        if (Input.GetKeyDown(Right))
+        {
+            Offset = new Vector2Int(1, 0);
+        }
+        if (Offset.x != 0 || Offset.y != 0)
+        {
+            if (MainGame.Instance.IsWall(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y) == false)
             {
-                GameObject _enemy = MainGame.Instance.GetEnemie(_cellPosition.x, _cellPosition.y + 1);
-                GameObject _gold = MainGame.Instance.GetGold(_cellPosition.x, _cellPosition.y+1);
-                GameObject _pnj = MainGame.Instance.GetPNJ(_cellPosition.x , _cellPosition.y +1);
+                GameObject _enemy = MainGame.Instance.GetEnemie(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
+
+                GameObject _item = MainGame.Instance.GetItem(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
+                GameObject _pnj = MainGame.Instance.GetPNJ(_cellPosition.x + Offset.x, _cellPosition.y + Offset.y);
                 if (_enemy != null)
                 {
                     Fighting(_enemy);
+                }
+                else if (_item != null)
+                {
                     
+                    if (_item.name == "GoldPrefab(Clone)")
+                    {
+                        Debug.Log("DELOR");
+                        
+                        _playerStats.Gold += 5;
+                        /*MainGame.Instance.ui.NewTextGold()*/;
 
+                    }
+                    else if (_item.name == "HealthPotionPrefab(Clone)")
+                    {
+                        Debug.Log("DELavie");
+                        _playerStats.LifePoints += 25;
+                        MainGame.Instance.ui.UpdateLifeText(_playerStats.LifePoints);
 
-
+                    }
+                    Destroy(_item);
 
                 }
-                
-                
-
-                
-                else if(_pnj != null)
+                else if (_pnj != null)
                 {
                     MainGame.Instance.pnj.StartImput();
                 }
                 else
                 {
 
-                    _cellPosition.y++;
-
                     UpdateView();
                 }
+                
             }
+            Offset = new Vector2Int(0, 0);
+
         }
         
+
+
+    }    
+                    
+
+
+
+
+               
+                
+                
+
+                
+             
             
         
-        if (Input.GetKeyDown(Down))
-        {
-
-            if (MainGame.Instance.IsWall(_cellPosition.x, _cellPosition.y - 1) == false)
-            {
-                GameObject enemy = MainGame.Instance.GetEnemie(_cellPosition.x, _cellPosition.y - 1);
-                if (enemy != null)
-                {
-                    Debug.Log("Enemy");
-                }
-                else
-                {
-                    _cellPosition.y--;
-
-                    UpdateView();
-                }
-            }
-         
-        }
-        if (Input.GetKeyDown(Left)) 
-        {
-            if(MainGame.Instance.IsWall(_cellPosition.x - 1, _cellPosition.y) == false)
-            {
-                GameObject enemy = MainGame.Instance.GetEnemie(_cellPosition.x - 1, _cellPosition.y);
-                if (enemy != null)
-                {
-                    Debug.Log("Enemy");
-                }
-                else
-                {
-                    _cellPosition.x--;
-
-                    UpdateView();
-                }
-            }
-           
-        }
-        if(Input.GetKeyDown(Right))
-        {
-            if (MainGame.Instance.IsWall(_cellPosition.x + 1, _cellPosition.y) == false)
-            {
-                GameObject enemy = MainGame.Instance.GetEnemie(_cellPosition.x + 1, _cellPosition.y);
-                if (enemy != null)
-                {
-                    Debug.Log("Enemy");
-                }
-                else
-                {
-                    _cellPosition.x++;
-
-                    UpdateView();
-                }
-            }
-
-        }
+       
 
 
 
-    }
-    private void UpdateView()
+    
+    public void UpdateView()
     {
+        _cellPosition += Offset;
         transform.position = new Vector3(_cellPosition.x * 0.08f, _cellPosition.y * 0.08f, 0);
     }
 
@@ -186,7 +182,21 @@ public class PlayerMovement : MonoBehaviour
         
         if (StatsEnemie.EnemyLifePoints <= 0)
         {
-            StatsEnemie.Die();
+            MainGame.Instance._PlayerStats.GainExperience(30);
+            int ItemAleatoire = Random.Range(0, 100);
+            if (ItemAleatoire < 30)
+            {
+                var Item = GameObject.Instantiate(StatsEnemie.goldPrefab, enemy.transform.position, Quaternion.identity);
+                MainGame.Instance.AjoutItem(0, 4, Item);
+
+            }
+            else 
+            {
+
+                GameObject Item = GameObject.Instantiate(StatsEnemie.healthPotionPrefab, enemy.transform.position, Quaternion.identity);
+                MainGame.Instance.AjoutItem(0, 4, Item);
+            }
+            Destroy(enemy);
         }
     }
 

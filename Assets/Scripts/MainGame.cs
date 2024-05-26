@@ -16,6 +16,7 @@ public class MainGame : MonoBehaviour
     public UI ui;
     public PlayerMovement player;
     public PNJ pnj;
+   
 
     [Header("Tiles")]
     public List<Tile> Tuiles = new List<Tile>();
@@ -29,7 +30,7 @@ public class MainGame : MonoBehaviour
     bool[,] _map;
     GameObject[,] _pnj;
     GameObject[,] _enemies;
-    GameObject[,] _gold;
+    GameObject[,] _items;
 
     //public bool[,] Map => _map;
 
@@ -41,14 +42,14 @@ public class MainGame : MonoBehaviour
 
     private void Start()
     {
-        _map = new bool[80,80];
+        _map = new bool[20,20];
         _enemies = new GameObject[20,20];
-        _gold = new GameObject[20,20];
+        _items = new GameObject[20,20];
         _pnj = new GameObject[20,20];
 
-        for(int y = 0; y < 80; y++)
+        for(int y = 0; y < 20; y++)
         {
-            for(int x = 0; x < 80; x++)
+            for(int x = 0; x < 20; x++)
             {
                 
                 var tile = Tilemap.GetTile(new Vector3Int (x, y, 0));
@@ -83,26 +84,21 @@ public class MainGame : MonoBehaviour
         GameObject Enemy = GameObject.Instantiate(PrefabEnemy, enemypostion, Quaternion.identity);
 
         _enemies[0,4] = Enemy;
+        
 
         //Instantiate pnj
         Vector3 pnjposition = Grid.CellToWorld(new Vector3Int(6, 4, 0));
         GameObject pnj = GameObject.Instantiate(PrefabPNJ, pnjposition, Quaternion.identity);
 
         _pnj[6, 4] = pnj;
+
+
     }
 
-    //public bool CheckForHealthPotion(Vector2Int position, PlayerMovement player)
-    //{
-    //    //if (healthPotions.ContainsKey(position))
-    //    //{
-    //    //    HealthPotion potion = healthPotions[position];
-    //    //    player.Heal(potion.healthAmount);
-    //    //    healthPotions.Remove(position);
-    //    //    Destroy(potion.gameObject); // Détruit l'objet potion
-    //    //    return true;
-    //    //}
-    //    //return false;
-    //}
+    public void AjoutItem(int x, int y, GameObject gameobject)
+    {
+        _items[x, y] = gameobject; 
+    }
 
 
     public bool IsWall(int x, int y)
@@ -115,9 +111,9 @@ public class MainGame : MonoBehaviour
         return _enemies[x, y];
     }
 
-    public GameObject GetGold(int x, int y) 
+    public GameObject GetItem(int x, int y) 
     {
-        return _gold[x, y];
+        return _items[x, y];
     }
     public GameObject GetPNJ(int x, int y)
     {
@@ -126,5 +122,27 @@ public class MainGame : MonoBehaviour
 
 
 }
+
+
+
+
+
+
+
+
+
+
+//public bool CheckForHealthPotion(Vector2Int position, PlayerMovement player)
+//{
+//    //if (healthPotions.ContainsKey(position))
+//    //{
+//    //    HealthPotion potion = healthPotions[position];
+//    //    player.Heal(potion.healthAmount);
+//    //    healthPotions.Remove(position);
+//    //    Destroy(potion.gameObject); // Détruit l'objet potion
+//    //    return true;
+//    //}
+//    //return false;
+//}
 
 

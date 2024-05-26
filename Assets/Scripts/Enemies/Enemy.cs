@@ -12,30 +12,31 @@ public class Enemy : MonoBehaviour
 
     public GameObject healthPotionPrefab;
     public GameObject goldPrefab;
-
     
 
-    public void Die()
-    {
+
+
+    //public void Die()
+    //{
         
-        GameObject.Destroy(gameObject);
-        MainGame.Instance._PlayerStats.GainExperience(30);
-        DropLoot(transform.position); 
-    }
+    //    GameObject.Destroy(gameObject);
+    //    MainGame.Instance._PlayerStats.GainExperience(30);
+    //    //DropLoot(transform.position); 
+    //}
 
-    public void DropLoot(Vector2 position)
-    {
-        float ItemAleatoire = Random.Range(0f, 1f);
-        if (ItemAleatoire < 0.3f)
-        {
-            GameObject Potion = GameObject.Instantiate(healthPotionPrefab, position, Quaternion.identity);
-        }
-        else if (ItemAleatoire < 0.9f)
-        {
-            GameObject Gold = GameObject.Instantiate(goldPrefab, position, Quaternion.identity);
+    //public void DropLoot(Vector2 position)
+    //{
+    //    float ItemAleatoire = Random.Range(0f, 1f);
+    //    if (ItemAleatoire < 0.3f)
+    //    {
+    //        GameObject Potion = GameObject.Instantiate(healthPotionPrefab, position, Quaternion.identity);
+    //    }
+    //    else if (ItemAleatoire < 0.9f)
+    //    {
+    //        GameObject Gold = GameObject.Instantiate(goldPrefab, position, Quaternion.identity);
 
-        }
-    }
+    //    }
+    //}
 
     //public void CheckForGold()
     //{
